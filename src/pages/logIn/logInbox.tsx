@@ -6,6 +6,7 @@ import { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { useAuthentication } from "../../context/autenticationContext";
 import { useNavigate } from "react-router";
+import Warning from "./warning";
 const useStyles = makeStyles({
   logInBox: {
     marginTop: "10rem",
@@ -36,18 +37,30 @@ const useStyles = makeStyles({
     marginBottom: "0.5rem",
     marginTop: "0.5rem",
   },
+  signUpButton : {
+    fontSize : "1.4rem"
+  }
 });
 function LogInBox() {
+  const [warning,setWarning] = useState<boolean>(false);
   const [userName, setUserName] = useState<string>();
   const [password,setPassword] = useState<string>();
   const {logInUser} = useAuthentication();
   const navigate = useNavigate();
   const classes = useStyles();
   async function getUserLoggedIn(){
-   await  logInUser(userName,password);
-   navigate("/QuizeMenu")
+   const response = await  logInUser(userName,password);
+   
+   if(!response.flag){
+     console.log("is this working")
+     setWarning(true)
+   }else{
+    navigate("/QuizeMenu")
+   }
+   
+ 
   }
-  return (
+  return (warning ? <Warning/> :
     <Container className={classes.logInBox}>
       <Typography className={classes.heading}>LogIn</Typography>
 
@@ -62,6 +75,10 @@ function LogInBox() {
       <Button className={classes.button}
       onClick={()=>getUserLoggedIn()}
       >Submit</Button>
+      <Button 
+      className={classes.signUpButton}
+      onClick={()=>navigate("/signUp")}
+      >Sign-Up</Button>
     </Container>
   );
 }

@@ -5,7 +5,8 @@ import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import { useAuthentication } from "../../context/autenticationContext";
 import { useState } from "react";
-
+import Warning from "./warning";
+import { useNavigate } from "react-router";
 
 const useStyles = makeStyles({
   signUpArea: {
@@ -39,11 +40,13 @@ const useStyles = makeStyles({
   },
 });
 function SignUpBox() {
+  const [warning,setWarning] = useState<boolean>(false)
   const [userName, setUserName] = useState<string>();
   const [password, setPassword] = useState<string>();
   const [emailID, setEmailID] = useState<string>();
   const [flag, setFlag] = useState<boolean>(false);
   const { signUpUser } = useAuthentication();
+  const navigate = useNavigate();
   const classes = useStyles();
 
   function getUserName(e: any) {
@@ -66,12 +69,16 @@ function SignUpBox() {
     console.log("i am working????");
     if (flag) {
       console.log("am i working");
-      await   signUpUser(userName, password, emailID);
-
+    const response =   await   signUpUser(userName, password, emailID);
+  if(!response.flag){
+setWarning(!warning);
+  }else{
+    navigate("/QuizeMenu")
+  }
     }
   }
 
-  return (
+  return (warning ? <Warning/> :
     <Container className={classes.signUpArea}>
       <Typography className={classes.heading}>sign Up</Typography>
       <Typography className={classes.inputFileldHeading}>userName</Typography>
