@@ -17,7 +17,7 @@ function FrontPageHeader(){
     const classes = useStyles();
     return (
       <AppBar className={classes.header}>
-        <Typography className={classes.Heading}>The Novel trivial App</Typography>
+        <Typography className={classes.Heading}>The Fantasy trivia App</Typography>
       </AppBar>
     );
 }

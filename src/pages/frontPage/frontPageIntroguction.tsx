@@ -34,7 +34,7 @@ function FrontPageIntroduction() {
   return (
     <Container className={classes.IntroductionBox}>
       <Typography className={classes.Introduction}>
-        Welcome to the Novel Trivia app. Click the button below to enter the app{" "}
+        Welcome to the FantasyTrivia app. Click the button below to enter the app{" "}
       </Typography>
       <Button
       onClick={()=>navigate("/QuizeMenu")} 
