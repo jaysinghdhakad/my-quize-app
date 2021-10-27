@@ -42,7 +42,8 @@ const useStyles = makeStyles({
 function SignUpBox() {
   const [warning,setWarning] = useState<boolean>(false)
   const [userName, setUserName] = useState<string>();
-  const [password, setPassword] = useState<string>();
+
+   const [password, setPassword] = useState<string>();
   const [emailID, setEmailID] = useState<string>();
   const [flag, setFlag] = useState<boolean>(false);
   const { signUpUser } = useAuthentication();
@@ -85,12 +86,13 @@ setWarning(!warning);
       <TextField onChange={(e) => getUserName(e)}></TextField>
       <Typography className={classes.inputFileldHeading}>e-mail</Typography>
       <TextField onChange={(e) => getEmailId(e)}></TextField>
-      <Typography className={classes.inputFileldHeading}>passward</Typography>
+      <Typography className={classes.inputFileldHeading}>password</Typography>
       <TextField onChange={(e) => getPassword(e)}></TextField>
       <Typography className={classes.inputFileldHeading}>
         Re-type password
       </Typography>
       <TextField onChange={(e) => checkPassword(e)}></TextField>
+      {flag? <Typography>password match!!</Typography>: <Typography></Typography>}
       <Button className={classes.button} onClick={() => getUserSignUp()}>
         subMit
       </Button>
